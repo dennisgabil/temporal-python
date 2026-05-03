@@ -1,0 +1,24 @@
+# temporal
+temporalio
+
+# PostgreSQL client
+psycopg2-binary>=2.9.9
+
+# Async support
+asyncio
+
+# Pandas
+pandas
+numpy
+
+#env
+python-dotenv
+
+#encryption-decryption
+cryptography
+
+#api
+fastapi>=0.110.0
+uvicorn[standard]>=0.27.0
+python-multipart>=0.0.9
+boto3>=1.28.0

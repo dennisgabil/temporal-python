@@ -1,0 +1,51 @@
+address,cif_code,comments,dob,first_name,hold_amount,last_name
+"680 Flinders Court, Newtown, NSW, Australia",gAAAAABp8ecvLtE03ekSjwjJHrS5HOOq7GCELWan3lWcQOgKu7Yx_JTTXelwdYFVaQmAoBjbo0-OEwxL4YtsuPmk4VI2xSykLw==,AUD: 1.0 has been freezed.,1975-09-01,Samuel,1,Smith
+"488 Harbour Drive, South Yarra, VIC, Australia",gAAAAABp8ecvr6A0SOcbTYobacZanu21cpSW6W0CCkNHuqZC3rJrVK8_aK9x_Hf00CKYhJdYXPixsQBHQI5vJEkcJPFpYf1qDw==,AUD: 2.0 has been freezed.,1965-03-16,Ethan,2,White
+"769 Grove Avenue, Footscray, VIC, Australia",gAAAAABp8ecvaZSkn-O7gubdzif9M-ZGJSoiivfYZljBzRIYuc5_3A4-BrHB-jNUcrVgXDagjSSsK9MQPDBFkbxdZxYtkpOuqg==,AUD: 3.0 has been freezed.,1977-10-30,Grace,3,Campbell
+"63 Bourke Street, Paddington, NSW, Australia",gAAAAABp8ecv3RRez4wu4ai7VwBX8kkhfiZD5BUeXC7f3s600QIEh75JO3AhaBMGdGzTgf47irRopEZvuWSOEzs7Imt4eRpI2Q==,AUD: 4.0 has been freezed.,2003-07-06,Samuel,4,Taylor
+"681 Pacific Terrace, Docklands, VIC, Australia",gAAAAABp8ecv6jKjW3bVaH_YKlHQXhwTSUOoFG0kla1KpNMKveoobBh6pSTKTL9JTNsAf716poPmd5RWwfz54feaI6Uxn8VibA==,AUD: 5.0 has been freezed.,1994-12-16,Grace,5,Scott
+"346 Bay Parade, Richmond, VIC, Australia",gAAAAABp8ecvW3ygK75jXHpcKBi-PT9oTzvaVViQrxd44O39UPvliVdBhfdc0t8NQWg7tlEUDm21WyDTf3-SZyx-372Iz6pIDg==,AUD: 6.0 has been freezed.,1974-07-07,Samuel,6,Baker
+"255 Oxford Drive, Moonee Ponds, VIC, Australia",gAAAAABp8ecvIF80F0F8oLt5hGz0QSxu3QlPa4AXJfLuJyZb2le8gsdNonBm3OtP3RVHH7_upkRfVPlJeoGF41Ie5EFUy_gciw==,AUD: 7.0 has been freezed.,2002-04-05,Noah,7,Walker
+"538 Spencer Road, Sunshine, VIC, Australia",gAAAAABp8ecvEFhWUlfwt_RXwe4rN_uOjQ5iGFE7a-pO7GGThDSJ2oHZXXVWjCFEdxqUEtifVPxbTa_uU4WKxUYyDVd6DFRuBg==,AUD: 8.0 has been freezed.,1983-10-12,Oliver,8,Kelly
+"197 Harbour Terrace, Hawthorn, VIC, Australia",gAAAAABp8ecvU4N3vZEIOMKjFkMJuMlAlFgiO5r9Acu_sfEOprheNLBBJiG7x2uoxZYf2wkVaKX_k9_8JE7qZl7gSdW3MlP2Zw==,AUD: 9.0 has been freezed.,1992-08-22,Samuel,9,Thompson
+"45 Princes Avenue, Chatswood, NSW, Australia",gAAAAABp8ecvbcFRgjZ-klE1aFZ0UGP7GJ0_sK4lt4RyeUVwL7uCkYHkpLIBwVWC6sxM47hYFQgD4-zoloD1QNgQFaodl-5E9Q==,AUD: 10.0 has been freezed.,1979-04-07,Amelia,10,Murphy
+"689 Ocean Lane, Kew, VIC, Australia",gAAAAABp8ecvpXieCIYoa9HgYkpI6D-z4FHitBLNhAQAjkYvAb84B2mbXZOmRge9PaH77GAtRJ7Af-kDFdAssYilzNGYoM2x1A==,AUD: 11.0 has been freezed.,1988-05-20,Olivia,11,Moore
+"4 King Way, Cronulla, NSW, Australia",gAAAAABp8ecv_VmoDa8arjBPdQfnUAuIRKdo-e3ocdG7Bgt4QkM7PgHv-sRgW-ukG1tS8B3ou62NOKINt6G4u36Xm7v6XB0ayA==,AUD: 12.0 has been freezed.,1969-10-15,William,12,Ryan
+"161 Pacific Road, Paddington, NSW, Australia",gAAAAABp8ecvQbrng6CtVcZFk9lBWhRWs2gSSrrQQSwcBJwK4JrQ6HOvi2I5MCTTV7oZUu0SCsMIKP3AlwMOkctCgQYCvptJ3w==,AUD: 13.0 has been freezed.,1986-07-09,Lucas,13,Clarke
+"368 Chapel Place, Melbourne, VIC, Australia",gAAAAABp8ecvCm0t9z2pUnnXSSKMEySwBKBPSpImsQ7T_yuesjROAubA4v2ZLhihvXML9YkEQ1xJ0FrSy_X9VNFtD7-If3bMEQ==,AUD: 14.0 has been freezed.,1988-11-21,Olivia,14,Murphy
+"759 Swanston Road, Docklands, VIC, Australia",gAAAAABp8ecvWpGzjfmeCQepesnVi89C00LYRcaF_V45_U7W0j46Mn0pVCuoLYNrUFL6Ku4hzwCW6eSpTp1N7BebA1UBn1Ishw==,AUD: 15.0 has been freezed.,1980-05-02,Ava,15,Young
+"966 Flinders Way, Essendon, VIC, Australia",gAAAAABp8ecvNlTvdWDNuqI3x5TqZ9PrcHh6ifs-CTp61W8ovo2k_aiMMtE0SQpuLFk-Fn1aKaRnxmHM3W41lzjt4gjCjD94zw==,AUD: 16.0 has been freezed.,1989-01-08,Ella,16,Martin
+"572 Grove Drive, Parramatta, NSW, Australia",gAAAAABp8ecv-OBMZwIfZR6iK170QiLR8Xh0ZGEmv8ls7u8Rj1qh9nZPAr3pdjTynQDGMt-Ja1xrTs4ks6PGJIUzbdDDL5oUoA==,AUD: 17.0 has been freezed.,1991-05-11,Charlotte,17,Cooper
+"860 Oxford Parade, Chatswood, NSW, Australia",gAAAAABp8ecvvKqVavxC27ggZm6132zlbU9oJJq75C9ivo_VEqDYQvpLGelVxqDdDlTknESqhRuTZ_0Oo2zthQ14HVa1gaaI0A==,AUD: 18.0 has been freezed.,1988-12-09,Oscar,18,Smith
+"681 Lygon Crescent, Camberwell, VIC, Australia",gAAAAABp8ecv5k5OrnvB_arHy-3KfZW1ySt_usFs7vjQfLCrFKMEC5B_oBdXg4qqb0wQykYUsbeYfC9RCt67VL-PDDjK1aXZEA==,AUD: 19.0 has been freezed.,1970-03-11,Henry,19,Smith
+"121 Bay Avenue, Williamstown, VIC, Australia",gAAAAABp8ecvsM_LlZDj_dyx5L1xx6-wQtYApfGJaKfmkdfgDAprcxIvF0Wy9wsCAGafwxr0SaUn-el-mNB-u_fT52Fz36gyHA==,AUD: 20.0 has been freezed.,1985-04-09,Olivia,20,Kelly
+"100 Bourke Place, Yarraville, VIC, Australia",gAAAAABp8ecvEBS0JIbSnVqgVjYPLmdk1TCjnXUrJt43SyZ1OCaf7nqqzZdTOGeVtS6xtFEaqz9xeibPWRxv688qLLKBJLoSjA==,AUD: 21.0 has been freezed.,1999-04-21,Henry,21,Edwards
+"675 Pacific Lane, Paddington, NSW, Australia",gAAAAABp8ecvjrIS80urrpBo8-vXJ1Bzzqe_Byw_3MWoVNfw-I8EZQOTkuIb9QQIgTFtOqR1Jnm7v4Q-2x-if4EzmCLxp1SewA==,AUD: 22.0 has been freezed.,1980-09-21,Zoe,22,Robinson
+"854 Bourke Avenue, Chatswood, NSW, Australia",gAAAAABp8ecvMaq2INNqehYdPZ-ZI_1BKAOsdBWXqr9DEEpJbumM__OkLNJCb4cwZuzY_D2LUHsL5lya4OKfcPU00m7qmRe8vw==,AUD: 23.0 has been freezed.,1987-07-26,James,23,Thompson
+"473 Grove Lane, Marrickville, NSW, Australia",gAAAAABp8ecvr4slwC_aK0pFHsY_dO5AgCO4j7qD8oU_BK6HJAndlXFCCo04wL81L_IVIXNco4ujjm7MDmzKJzNniYrSR83VdA==,AUD: 24.0 has been freezed.,1990-09-06,Liam,24,Cooper
+"133 George Lane, St Kilda, VIC, Australia",gAAAAABp8ecv0CupO2okeaBLmWsT8r7Nv31BWiEKxLLBlh1IW9N7ydpIh3X_QglD11hPD76lnrKYiX7VOrkvEQvoyDej44TM_w==,AUD: 25.0 has been freezed.,1973-02-18,Emily,25,Brown
+"626 Collins Street, Yarraville, VIC, Australia",gAAAAABp8ecvgxYKqrN_G1CvE06DLWiTAA0rILQ5P8C3pszWaFTjQPnGlj6QaaRXLaf-oJF72wJXVTm_0wUM0xoxsVxrJevA2Q==,AUD: 26.0 has been freezed.,2002-05-26,Charlotte,26,Clarke
+"195 Chapel Lane, Kogarah, NSW, Australia",gAAAAABp8ecvFcEgh1Emuc8aTe39ymc0ILF8Jec_WtSmC_NX_9Vl_javYhu2HdB_lCfnHTUtmX8HBeRP7bAu-iRuRWmew7Ykbw==,AUD: 27.0 has been freezed.,1964-05-19,Ella,27,King
+"984 Swanston Avenue, Collingwood, VIC, Australia",gAAAAABp8ecvyNA41JDuZahk84rMHqYMumzYQk0NrjTZckjlAA-o4nXTmkQjG3tfIYgFfbLw6687wr3GF7PBi3cHG91nEI8IJQ==,AUD: 28.0 has been freezed.,2002-12-04,Noah,28,Campbell
+"592 Pitt Parade, Kew, VIC, Australia",gAAAAABp8ecvXdVmqqQ967CCjyONWU3vMA0e98pLz4ndY4rMNlWwsGQkKi3QoauPBtkD9KEiWoPkyvQw8_JOWwSpYhvSasUVfQ==,AUD: 29.0 has been freezed.,1963-07-31,Jack,29,Young
+"592 Victoria Parade, Yarraville, VIC, Australia",gAAAAABp8ecvDnW6PYvjxi753u9x8Sf3yeEL_fEdYBE9VZgWcoqL9eBVdY2MHlltqwdGko7fzHFECiZdBwMt_38HD-JT8XhD1A==,AUD: 30.0 has been freezed.,1998-11-25,Amelia,30,Thompson
+"233 George Court, Kew, VIC, Australia",gAAAAABp8ecvsu12aofBAnAis-JBfB4h9kXVRvMfnEd65nXh7_KaQM__0bLHuPfDgoQJBpgyqX5u--qdMWbs87irOYoD6cx2QA==,AUD: 31.0 has been freezed.,1985-10-10,Ruby,31,Wright
+"793 Garden Lane, Mosman, NSW, Australia",gAAAAABp8ecv4XzHsV7_yi7JnemMwUZFIdUHRi5k4uEs-qtE_2eNioOFO8_ob6vRfj08YgkKUy4itKAGZlUdZmAJi5kGWmX4qQ==,AUD: 32.0 has been freezed.,1972-06-05,Liam,32,Evans
+"428 Hill Way, Coogee, NSW, Australia",gAAAAABp8ecvVd9ePGNfBSEkZegKy3i07uFe2QccGxTArm5jLDHt1dVSePDfnFMegjdkEUCavCiwJglgLCfgIqKPC9NqW5zr4g==,AUD: 33.0 has been freezed.,1962-11-14,Ethan,33,Mitchell
+"812 Bridge Crescent, Hawthorn, VIC, Australia",gAAAAABp8ecvHWmzkOIZ7d0_KdTJMusOhGFW1cscV41wZqyNabSA9BGsbAoaD_YYnVnx4Tke8borsDuM033JYMpY2FEHLr7BZg==,AUD: 34.0 has been freezed.,1970-03-27,Lucas,34,Walker
+"422 River Street, Southbank, VIC, Australia",gAAAAABp8ecvL2Wed1hqN_ojmighT3IELAjd45VINIbHVJNI_Z7B4Jr7R7NH98LpBH-q7m9lmRfwEYj38TQ_XRVaG79PnRZOBQ==,AUD: 35.0 has been freezed.,1965-08-23,Henry,35,Jones
+"90 Pacific Crescent, Moonee Ponds, VIC, Australia",gAAAAABp8ecvKzqPFQW22cc6y7MVJITGK3PbFnCTfwRjsFZjPxicjuRNPsszn4pxe8KTMwG-IyBmtN1cmJcemDHyXr-nyx97kw==,AUD: 36.0 has been freezed.,1966-11-08,Amelia,36,Edwards
+"28 Spencer Place, Melbourne, VIC, Australia",gAAAAABp8ecvLM9tvpK4UeWUiVRUU7vcNlxjv_DhIiBKJM2VcmB7cXJ84X-wli2yqLgEcXFaoKObyjBQ6e5iONqRiVXRdTmK4w==,AUD: 37.0 has been freezed.,1975-05-24,Samuel,37,Baker
+"549 Princes Terrace, Balmain, NSW, Australia",gAAAAABp8ecv_8dSuKQAgEbY7Wy918JxY0kG_Fm24Yq-dNM0o-dpqPa9XoL47DMg9leF_7nTOiU5etswg9c1bOLFpxVT8ciHCw==,AUD: 38.0 has been freezed.,1980-11-28,Matilda,38,White
+"679 River Street, Collingwood, VIC, Australia",gAAAAABp8ecvkNGTQk6BaH0WWC83kFcrb-xAffPZr-A-KF_JqRD2SaIqiFRNeyVXi1_5XewrZgzUIIRMMh5mkdrspak0V_xYSw==,AUD: 39.0 has been freezed.,1970-10-03,Emily,39,King
+"667 Swanston Road, Burwood, NSW, Australia",gAAAAABp8ecv9RL_8h-xFJtUlXGacq9e6EHOs0hBmKaWRTBkxcYBNA08KGjPY1RejS_BSY5NYnntbiminwFrHiPPMpTYf802Vg==,AUD: 40.0 has been freezed.,1997-08-24,Liam,40,Cooper
+"135 Ocean Parade, Moonee Ponds, VIC, Australia",gAAAAABp8ecvX5wHjlsaXZFcVxmDagMxxSsxcAQtvSFuimOi6WCbd5Yiy9ltl22LNXHWaCSll9zaTYy1gqccO7-lLQFSEH_new==,AUD: 41.0 has been freezed.,2003-04-17,Matilda,41,Smith
+"563 Collins Crescent, Prahran, VIC, Australia",gAAAAABp8ecvJ8i_rq_6a2Z-YWxv2PbY2HAtvZ5_oASklbDc9tNTeiVo7ocOs4clO6QxNVOWK4L4id0AScAI-2lcKjnwAprdXA==,AUD: 42.0 has been freezed.,1961-11-13,Ava,42,Young
+"820 Park Crescent, Moonee Ponds, VIC, Australia",gAAAAABp8ecvN4L-AuSQOZvdygXXH-p4Z-l7ls1F-O-hGDzcGh2himYOHyQrxuUUYKFhJ4ErQ_TSVV36FxorClhmrA5ImG_knQ==,AUD: 43.0 has been freezed.,1972-08-05,Matilda,43,Clarke
+"312 King Court, Manly, NSW, Australia",gAAAAABp8ecvRZRtZMktptHSQVf89a8cRIat4Sa-TQF2Gpogu9AfHK3dZPvwOxsZZUiW-JruBh9DiVzM0xN9hdgkPz5pIEebbQ==,AUD: 44.0 has been freezed.,1960-06-09,Chloe,44,Jones
+"763 Lygon Street, Paddington, NSW, Australia",gAAAAABp8ecv_TLAv21W5dcPdmaBxLR_8HmGlGUeSWrjt9wrzD9lfiKfwZ0it4OQ-4_KUw6-BAM0acUF8TqZs6yrEqdONGVx5A==,AUD: 45.0 has been freezed.,2001-04-25,Amelia,45,Johnson
+"919 Lygon Terrace, Surry Hills, NSW, Australia",gAAAAABp8ecvaNg3ICN_O_br812xiWSu0dhB4aBoY_OQAwJc3rdgsK9-vKZ7IpPtGv_5zh3T1bhwfZJhk9LP-aVaF_bix867-Q==,AUD: 46.0 has been freezed.,1980-01-20,Mia,46,Harris
+"461 High Way, Richmond, VIC, Australia",gAAAAABp8ecvtJ4YcVcL9Z22uQtjW4G_TImQ5jPbDxlmjqoFcPY-ptBq3MS9C5WtcPbsi-3SEZIHqAMcLd22KUwkG8xo3KWhzg==,AUD: 47.0 has been freezed.,2000-12-20,Liam,47,Walker
+"150 Bridge Lane, Mosman, NSW, Australia",gAAAAABp8ecv_4kC2sNQykaGbxHOaI0C7NHvrXDzXgakapZo2ypqqsbn1hZ7X37wDKO8pm0FiVy1aN3s88b7eTZajSpAwI96sg==,AUD: 48.0 has been freezed.,1992-07-27,Ruby,48,Taylor
+"59 Collins Lane, Kew, VIC, Australia",gAAAAABp8ecvR3yHo5F4OljiAXM_lKWIT8nyPRmOjH0nAXBLcchWOk4msr8q2ar0Rej77x8Cvszzkm7qp0gJJIIt5TjHT0zmNg==,AUD: 49.0 has been freezed.,1992-08-08,Zoe,49,Williams
+"188 Castlereagh Court, Bendigo, VIC, Australia",gAAAAABp8ecvkmX8ALkuodJZt77_7oD3R9MIJF92Q9V5lXAFnZjdPaL5wynigDgo3DfIDzDNS47BKvQPzxSiLxwGZTFN7MSPcA==,AUD: 50.0 has been freezed.,1961-06-16,Matilda,50,Mitchell
