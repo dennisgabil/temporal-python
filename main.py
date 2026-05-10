@@ -14,6 +14,7 @@ from temporalio.api.enums.v1 import EventType
 from activity.agent_decision_activity import agent_handler
 from pydantic import BaseModel
 import pandas as pd
+import json
 
 logger = logging.getLogger(__name__)
 load_dotenv()
@@ -31,6 +32,8 @@ from fastapi.middleware.cors import CORSMiddleware
 
 origins = [
     "http://localhost:5173",
+    "http://localhost:3000",
+    "http://localhost:3001",
 ]
 app.add_middleware(
     CORSMiddleware,
@@ -93,7 +96,7 @@ async def load_revenue_file(file: UploadFile = File(...)):
             raise HTTPException(status_code=404, detail="CSV file not found")
 
         df = pd.read_csv(CSV_PATH)
-        enriched_data = df.to_dict(orient="records")
+        enriched_data = json.loads(df.to_json(orient="records"))
         return {
         "message": "File processed successfully. Processed file will be available in S3 after workflow completion.",
         "key": new_s3_key,
@@ -110,14 +113,11 @@ async def put_amount_on_hold(file: UploadFile = File(...)):
                 raise HTTPException(status_code=400, detail="File name is missing.")
 
             filename = safe_filename(file.filename)
-
             if not filename.lower().endswith(".csv"):
                 raise HTTPException(status_code=400, detail="Only .csv files are allowed.")
-
             # 2) Validate required columns
             content_bytes = await read_uploadfile_bytes(file)
             validate_csv_columns(content_bytes, telemetery_amount_put_on_hold=True)
-
             hour_prefix = ist_hour_prefix()
             s3_key = f"{hour_prefix}/telemetry-amount-hold/{filename}"
             # upload_bytes_to_s3(
@@ -136,12 +136,11 @@ async def put_amount_on_hold(file: UploadFile = File(...)):
             new_s3_key = s3_key.replace("telemetry-amount-hold", "freezed-amount-on-account")
             base_dir = os.getcwd()
             CSV_PATH = os.path.join(base_dir,"hold_amount_with_cif_codes.csv")
-            print('CSV_PATH',CSV_PATH)
             if not os.path.exists(CSV_PATH):
                 raise HTTPException(status_code=404, detail="CSV file not found")
 
             df = pd.read_csv(CSV_PATH)
-            enriched_data = df.to_dict(orient="records")
+            enriched_data = json.loads(df.to_json(orient="records"))
             return {
             "message": "File processed successfully. Processed file will be available in S3 after workflow completion.",
             "key": new_s3_key,
@@ -149,6 +148,30 @@ async def put_amount_on_hold(file: UploadFile = File(...)):
                 }
         except Exception as e:
             raise HTTPException(status_code=500, detail=f"Error while processing: {str(e)}")
+
+
+class PaymentStatusRequest(BaseModel):
+    cif_code: str
+
+@app.post("/check-current-payment-status")
+async def check_current_payment_status(request: PaymentStatusRequest):
+    try:
+        base_dir = os.getcwd()
+        CSV_PATH = os.path.join(base_dir, "hold_amount_with_cif_codes.csv")
+        if not os.path.exists(CSV_PATH):
+            raise HTTPException(status_code=404, detail="CSV file not found")
+
+        df = pd.read_csv(CSV_PATH)
+        row = df[df["cif_code"] == request.cif_code]
+        if row.empty:
+            raise HTTPException(status_code=404, detail="CIF code not found")
+
+        payment_status = str(row.iloc[0]["payment_status"])
+        return {"cif_code": request.cif_code, "payment_status": "paid"}
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @app.get("/workflows")
