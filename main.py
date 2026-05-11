@@ -180,43 +180,77 @@ async def check_current_payment_status(request: PaymentStatusRequest):
 
 @app.post("/train-risk-model")
 async def train_risk_model():
-    """Train the risk model on hold_amount_with_cif_codes.csv and save to disk."""
     try:
+        import joblib, boto3
+        from ml.train_model import train_binary_model
+        from ml.feature_engineering import build_feature_frame
+
         base_dir = os.getcwd()
         CSV_PATH = os.path.join(base_dir, "hold_amount_with_cif_codes.csv")
         if not os.path.exists(CSV_PATH):
             raise HTTPException(status_code=404, detail="CSV file not found")
 
-        import joblib
-        from ml.train_model import train_binary_model
-
         df = pd.read_csv(CSV_PATH)
 
-        # Map CSV columns to ML schema
-        if "product" in df.columns:
-            df["product_type"] = df["product"].astype(str)
-        if "hold_amount" in df.columns:
-            df["outstanding_amount"] = pd.to_numeric(df["hold_amount"], errors="coerce").fillna(0.0)
+        # Derive label: unpaid = 1 (high risk), paid = 0 (low risk)
+        df["label_risk"] = df["payment_status"].str.lower().apply(
+            lambda x: 1 if "unpaid" in str(x) else 0
+        )
 
-        # Use payment_status as proxy label
-        if "payment_status" in df.columns:
-            df["label_risk"] = df["payment_status"].str.lower().apply(
-                lambda x: 1 if "unpaid" in str(x) else 0
-            )
-        else:
-            df["label_risk"] = 0
-
-        if df["label_risk"].nunique() < 2:
-            synthetic = df.iloc[[0]].copy()
-            synthetic["label_risk"] = 1 - int(df["label_risk"].iloc[0])
-            df = pd.concat([df, synthetic], ignore_index=True)
-
+        # Train
         model, metrics = train_binary_model(df, label_col="label_risk")
 
-        local_model_path = os.getenv("LOCAL_MODEL_PATH", "./risk_model.joblib")
+        # Save model locally
+        local_model_path = os.path.join(base_dir, "models", "risk_model_v1.joblib")
+        os.makedirs(os.path.dirname(local_model_path), exist_ok=True)
         joblib.dump(model, local_model_path)
 
-        return {"message": "Model trained and saved", "metrics": metrics, "saved_to": local_model_path}
+        # Generate predictions
+        X = build_feature_frame(df)
+        predictions = model.predict(X)
+        probabilities = model.predict_proba(X)[:, 1]
+
+        pred_df = pd.DataFrame({
+            "first_name":      df["first_name"],
+            "last_name":       df["last_name"],
+            "cif_code":        df["cif_code"],
+            "product":         df["product"],
+            "hold_amount":     df["hold_amount"],
+            "payment_status":  df["payment_status"],
+            "customer_status": df["customer_status"],
+            "risk_score":      probabilities.round(4),
+            "risk_label":      ["HIGH RISK" if p == 1 else "LOW RISK" for p in predictions],
+        })
+
+        timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+        predictions_filename = f"predictions_{timestamp}.csv"
+        predictions_path = os.path.join(base_dir, "Prediction", predictions_filename)
+        os.makedirs(os.path.dirname(predictions_path), exist_ok=True)
+        pred_df.to_csv(predictions_path, index=False)
+
+        # Upload model + predictions to S3 (mlfortemporal bucket)
+        s3 = boto3.client(
+            "s3",
+            region_name=os.getenv("AWS_DEFAULT_REGION"),
+            aws_access_key_id=os.getenv("AWS_ACCESS_KEY_ID"),
+            aws_secret_access_key=os.getenv("AWS_SECRET_ACCESS_KEY"),
+            aws_session_token=os.getenv("AWS_SESSION_TOKEN"),
+        )
+        ml_bucket = os.getenv("MODEL_BUCKET", "mlfortemporal")
+        model_s3_key = os.getenv("RISK_MODEL_S3_KEY", "models/risk_model_v1.joblib")
+        predictions_s3_key = f"Prediction/{predictions_filename}"
+
+        s3.upload_file(local_model_path, ml_bucket, model_s3_key)
+        s3.upload_file(predictions_path, ml_bucket, predictions_s3_key)
+
+        return {
+            "message": "Model trained, predictions generated, and files uploaded to S3",
+            "metrics": metrics,
+            "s3_model":       f"s3://{ml_bucket}/{model_s3_key}",
+            "s3_predictions": f"s3://{ml_bucket}/{predictions_s3_key}",
+            "high_risk_count": int((predictions == 1).sum()),
+            "low_risk_count":  int((predictions == 0).sum()),
+        }
     except HTTPException:
         raise
     except Exception as e:
