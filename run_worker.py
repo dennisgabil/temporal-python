@@ -20,6 +20,7 @@ from activity.hold_amount_activity import hold_account_amount, hold_account_amou
 from activity.write_amount_hold_csv_activity import write_amount_hold_csv
 from activity.fetch_file_from_s3_bucket import fetch_file_from_s3
 from activity.csv_read_activity import read_amount_on_hold_csv
+from activity.ml_scoring_activity import ml_score_records
 import os
 from dotenv import load_dotenv
 
@@ -72,6 +73,7 @@ async def main() -> None:
                 hold_account_amount,
                 hold_account_amount_sqlite,
                 write_amount_hold_csv,
+                ml_score_records,
             ],
             activity_executor=executor,
         )

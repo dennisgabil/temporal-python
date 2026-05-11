@@ -141,6 +141,10 @@ async def put_amount_on_hold(file: UploadFile = File(...)):
 
             df = pd.read_csv(CSV_PATH)
             enriched_data = json.loads(df.to_json(orient="records"))
+
+            from activity.ml_scoring_activity import ml_score_records
+            enriched_data = ml_score_records(enriched_data)
+
             return {
             "message": "File processed successfully. Processed file will be available in S3 after workflow completion.",
             "key": new_s3_key,
@@ -168,6 +172,51 @@ async def check_current_payment_status(request: PaymentStatusRequest):
 
         payment_status = str(row.iloc[0]["payment_status"])
         return {"cif_code": request.cif_code, "payment_status": "paid"}
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/train-risk-model")
+async def train_risk_model():
+    """Train the risk model on hold_amount_with_cif_codes.csv and save to disk."""
+    try:
+        base_dir = os.getcwd()
+        CSV_PATH = os.path.join(base_dir, "hold_amount_with_cif_codes.csv")
+        if not os.path.exists(CSV_PATH):
+            raise HTTPException(status_code=404, detail="CSV file not found")
+
+        import joblib
+        from ml.train_model import train_binary_model
+
+        df = pd.read_csv(CSV_PATH)
+
+        # Map CSV columns to ML schema
+        if "product" in df.columns:
+            df["product_type"] = df["product"].astype(str)
+        if "hold_amount" in df.columns:
+            df["outstanding_amount"] = pd.to_numeric(df["hold_amount"], errors="coerce").fillna(0.0)
+
+        # Use payment_status as proxy label
+        if "payment_status" in df.columns:
+            df["label_risk"] = df["payment_status"].str.lower().apply(
+                lambda x: 1 if "unpaid" in str(x) else 0
+            )
+        else:
+            df["label_risk"] = 0
+
+        if df["label_risk"].nunique() < 2:
+            synthetic = df.iloc[[0]].copy()
+            synthetic["label_risk"] = 1 - int(df["label_risk"].iloc[0])
+            df = pd.concat([df, synthetic], ignore_index=True)
+
+        model, metrics = train_binary_model(df, label_col="label_risk")
+
+        local_model_path = os.getenv("LOCAL_MODEL_PATH", "./risk_model.joblib")
+        joblib.dump(model, local_model_path)
+
+        return {"message": "Model trained and saved", "metrics": metrics, "saved_to": local_model_path}
     except HTTPException:
         raise
     except Exception as e:

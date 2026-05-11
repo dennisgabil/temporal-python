@@ -13,6 +13,7 @@ with workflow.unsafe.imports_passed_through():
     from activity.csv_read_activity import read_amount_on_hold_csv
     from activity.csv_enrich_activity import write_enriched_csv
     from activity.file_upload_activity import upload_file_to_s3
+    from activity.ml_scoring_activity import ml_score_records
 
 default_retry_policy = RetryPolicy(
     initial_interval = timedelta(seconds=2),
@@ -33,6 +34,7 @@ class HoldAccountWithPenaltyWorkflow:
             "file_path":None,
             "raw_data":None,
             "proessed_user_data":None,
+            "ml_scored_data":None,
             "processed_file_path":None,
             "enrichment_source":"sqlite"
         }
@@ -75,14 +77,24 @@ class HoldAccountWithPenaltyWorkflow:
             )
             state['step'] = "proessed"
 
+        # STEP 5: ML risk scoring + action recommendations
         if state['step'] == "proessed":
+            state['ml_scored_data'] = await workflow.execute_activity(
+                ml_score_records,
+                state['proessed_user_data'],
+                schedule_to_close_timeout=timedelta(minutes=2),
+                retry_policy=default_retry_policy
+            )
+            state['step'] = "ml_scored"
+
+        # STEP 6: Write enriched CSV (now includes ML columns)
+        if state['step'] == "ml_scored":
             state['processed_file_path'] = await workflow.execute_activity(
                 write_enriched_csv,
-                {"file_path": state['file_path'], "enriched_data": state['proessed_user_data']},
+                {"file_path": state['file_path'], "enriched_data": state['ml_scored_data']},
                 schedule_to_close_timeout=timedelta(minutes=1),
                 retry_policy=default_retry_policy
             )
-
             state['step'] = "write"
 
         if state['step'] == "write":
