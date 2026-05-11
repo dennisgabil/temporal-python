@@ -12,7 +12,7 @@ from utils.cif_masking import CifMasker
 logger = logging.getLogger(__name__)
 load_dotenv()
 host = os.getenv("DB_HOST")
-port = os.getenv("DB-PORT")
+port = os.getenv("DB_PORT")
 username = os.getenv("DB_USERNAME")
 password = os.getenv("DB_PASSWORD")
 db = os.getenv("DB_NAME")
