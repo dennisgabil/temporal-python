@@ -142,9 +142,6 @@ async def put_amount_on_hold(file: UploadFile = File(...)):
             df = pd.read_csv(CSV_PATH)
             enriched_data = json.loads(df.to_json(orient="records"))
 
-            from activity.ml_scoring_activity import ml_score_records
-            enriched_data = ml_score_records(enriched_data)
-
             return {
             "message": "File processed successfully. Processed file will be available in S3 after workflow completion.",
             "key": new_s3_key,
@@ -427,6 +424,12 @@ AGENTS = [
 "agent_id": "read_csv_agent",
 "name": "Read CSV Agent",
 "description": "Builds workflow dashboard data",
+"type": "rule-based"
+},
+{
+"agent_id": "llm_agent",
+"name": "LLM Agent",
+"description": "Interacts with large language model for natural language processing",
 "type": "rule-based"
 }
 ]

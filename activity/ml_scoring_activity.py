@@ -44,7 +44,6 @@ def _get_or_train_model(df: pd.DataFrame):
     else:
         train_df["label_risk"] = 0
 
-    # Binary classification requires at least 2 classes
     if train_df["label_risk"].nunique() < 2:
         synthetic = train_df.iloc[[0]].copy()
         synthetic["label_risk"] = 1 - int(train_df["label_risk"].iloc[0])
@@ -58,9 +57,32 @@ def _get_or_train_model(df: pd.DataFrame):
 
 @activity.defn
 def ml_score_records(records: List[Dict]) -> List[Dict]:
-    """Score records with risk model and attach action recommendations."""
-    logger.info("ML scoring %d records", len(records))
+    """
+    Score records with risk model.
+    Uses heartbeating to checkpoint progress every 10 records.
+    On attempt 1: simulates a failure after 40 records to demonstrate Temporal retries.
+    On attempt 2+: resumes from the last heartbeat checkpoint.
+    """
+    info = activity.info()
+    attempt = info.attempt
+    heartbeat_details = info.heartbeat_details
 
+    start_idx = 0
+    scored = []
+
+    print(f"[ML SCORING] Attempt {attempt} started | heartbeat_details present: {bool(heartbeat_details)}", flush=True)
+
+    if heartbeat_details:
+        checkpoint = heartbeat_details[0]
+        start_idx = int(checkpoint.get("processed_count", 0)) if isinstance(checkpoint, dict) else 0
+        scored = checkpoint.get("partial_results", []) if isinstance(checkpoint, dict) else []
+        print(f"[ML SCORING] Attempt {attempt}: resuming from record {start_idx + 1}, recovered {len(scored)} records", flush=True)
+        logger.info("Attempt %d: resuming from record %d (recovered %d already scored records)", attempt, start_idx + 1, len(scored))
+    else:
+        print(f"[ML SCORING] Attempt {attempt}: starting from record 1 of {len(records)}", flush=True)
+        logger.info("Attempt %d: starting from record 1 of %d", attempt, len(records))
+
+    # Score all records upfront so we have probabilities ready
     df = pd.DataFrame(records)
     df = _map_to_ml_features(df)
 
@@ -73,9 +95,25 @@ def ml_score_records(records: List[Dict]) -> List[Dict]:
         logger.warning("ML scoring failed (%s) — defaulting all scores to 50", exc)
         risk_scores = [50.0] * len(records)
 
-    scored = []
-    for i, record in enumerate(records):
-        scored.append({**record})
+    # Process records from where we left off
+    for i in range(start_idx, len(records)):
+        scored.append({**records[i]})
 
-    logger.info("ML scoring complete")
+        # Heartbeat every 10 records to checkpoint progress
+        if (i + 1) % 10 == 0:
+            activity.heartbeat({"processed_count": i + 1, "partial_results": scored})
+            print(f"[ML SCORING] Attempt {attempt}: heartbeat — processed {i + 1}/{len(records)} records", flush=True)
+            logger.info("Attempt %d: heartbeat — processed %d/%d records", attempt, i + 1, len(records))
+
+        # Simulate failure at record 40 on first attempt only
+        if attempt == 1 and i == 39:
+            activity.heartbeat({"processed_count": i + 1, "partial_results": scored})
+            print(f"[ML SCORING] Attempt {attempt}: SIMULATED FAILURE at record {i + 1} — Temporal will retry from record {i + 2}", flush=True)
+            raise Exception(
+                f"Simulated failure after record {i + 1} — "
+                f"Temporal will retry and resume from record {i + 2}"
+            )
+
+    print(f"[ML SCORING] Attempt {attempt}: COMPLETE — {len(scored)}/{len(records)} records scored", flush=True)
+    logger.info("Attempt %d: ML scoring complete — %d/%d records scored", attempt, len(scored), len(records))
     return scored

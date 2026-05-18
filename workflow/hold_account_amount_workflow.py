@@ -19,7 +19,7 @@ default_retry_policy = RetryPolicy(
     initial_interval = timedelta(seconds=2),
     backoff_coefficient = 2.0,
     maximum_interval = timedelta(seconds=30),
-    maximum_attempts = 5
+    maximum_attempts = 3
 )
 
 @workflow.defn
@@ -78,11 +78,13 @@ class HoldAccountWithPenaltyWorkflow:
             state['step'] = "proessed"
 
         # STEP 5: ML risk scoring + action recommendations
+        # Heartbeat timeout: if no heartbeat received in 20s, Temporal marks activity as failed and retries
         if state['step'] == "proessed":
             state['ml_scored_data'] = await workflow.execute_activity(
                 ml_score_records,
                 state['proessed_user_data'],
-                schedule_to_close_timeout=timedelta(minutes=2),
+                schedule_to_close_timeout=timedelta(minutes=5),
+                heartbeat_timeout=timedelta(seconds=20),
                 retry_policy=default_retry_policy
             )
             state['step'] = "ml_scored"
@@ -107,6 +109,7 @@ class HoldAccountWithPenaltyWorkflow:
                     "put_amount_on_hold_workflow": True
                 },
                 schedule_to_close_timeout=timedelta(seconds=30),
+                retry_policy=default_retry_policy,
             )
             state['step'] = "completed"
 
